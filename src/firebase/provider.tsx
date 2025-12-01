@@ -69,6 +69,38 @@ export const FirebaseProvider: React.FC<FirebaseProviderProps> = ({
 
   // Effect to subscribe to Firebase auth state changes
   useEffect(() => {
+    // Mock User Injection
+    if (process.env.NEXT_PUBLIC_USE_MOCK_USER === 'true') {
+      const mockUser = {
+        uid: 'kadjYDNAiW3pZSKjcLaYvLnjzaIu',
+        email: 'mock@example.com',
+        displayName: 'Mock Pro User',
+        emailVerified: true,
+        isAnonymous: false,
+        metadata: {},
+        providerData: [],
+        refreshToken: '',
+        tenantId: null,
+        delete: async () => { },
+        getIdToken: async () => 'mock-token',
+        getIdTokenResult: async () => ({
+          token: 'mock-token',
+          signInProvider: 'custom',
+          claims: {},
+          authTime: Date.now().toString(),
+          issuedAtTime: Date.now().toString(),
+          expirationTime: (Date.now() + 3600000).toString(),
+        }),
+        reload: async () => { },
+        toJSON: () => ({}),
+        phoneNumber: null,
+        photoURL: null,
+      } as unknown as User;
+
+      setUserAuthState({ user: mockUser, isUserLoading: false, userError: null });
+      return;
+    }
+
     if (!auth) { // If no Auth service instance, cannot determine user state
       setUserAuthState({ user: null, isUserLoading: false, userError: new Error("Auth service not provided.") });
       return;
@@ -154,14 +186,14 @@ export const useFirebaseApp = (): FirebaseApp => {
   return firebaseApp;
 };
 
-type MemoFirebase <T> = T & {__memo?: boolean};
+type MemoFirebase<T> = T & { __memo?: boolean };
 
 export function useMemoFirebase<T>(factory: () => T, deps: DependencyList): T | (MemoFirebase<T>) {
   const memoized = useMemo(factory, deps);
-  
-  if(typeof memoized !== 'object' || memoized === null) return memoized;
+
+  if (typeof memoized !== 'object' || memoized === null) return memoized;
   (memoized as MemoFirebase<T>).__memo = true;
-  
+
   return memoized;
 }
 

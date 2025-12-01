@@ -177,6 +177,50 @@ export default function ProPage() {
   }
 
 
+  const { data: userData } = useDoc<{ isSubscribed?: boolean; subscriptionTier?: string }>(
+    user ? doc(firestore, 'users', user.uid) : null
+  );
+
+  const isSubscribed = userData?.isSubscribed;
+
+  if (isSubscribed) {
+    return (
+      <div className="flex flex-col min-h-screen bg-background p-6 items-center justify-center">
+        <div className="w-full max-w-md text-center">
+          <div className="inline-flex items-center justify-center p-4 bg-gold/10 rounded-full mb-6">
+            <Star className="h-12 w-12 text-gold fill-gold" />
+          </div>
+          <h1 className="text-3xl font-bold text-foreground mb-2">You are a PRO Member!</h1>
+          <p className="text-muted-foreground mb-8">
+            Thank you for being a premium member. You have full access to all features.
+          </p>
+
+          <Card className="bg-card border-border/50 shadow-lg mb-8 text-left">
+            <CardContent className="p-6">
+              <div className="flex justify-between items-center mb-4">
+                <span className="text-sm font-medium text-muted-foreground">Current Plan</span>
+                <span className="text-sm font-bold text-primary capitalize">{userData?.subscriptionTier || 'Annual'}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm font-medium text-muted-foreground">Status</span>
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                  Active
+                </span>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Button
+            onClick={() => router.push('/dashboard/home')}
+            className="w-full h-12 rounded-xl font-bold bg-primary text-white"
+          >
+            Go to Dashboard
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col min-h-screen bg-background p-6 items-center selection:bg-gold/30">
       <div className="w-full max-w-md pb-20">

@@ -1,5 +1,5 @@
 'use client';
-    
+
 import { useState, useEffect } from 'react';
 import {
   DocumentReference,
@@ -58,6 +58,20 @@ export function useDoc<T = any>(
     setIsLoading(true);
     setError(null);
     // Optional: setData(null); // Clear previous data instantly
+
+    if (process.env.NEXT_PUBLIC_USE_MOCK_USER === 'true' && memoizedDocRef.path === 'users/kadjYDNAiW3pZSKjcLaYvLnjzaIu') {
+      setData({
+        id: 'kadjYDNAiW3pZSKjcLaYvLnjzaIu',
+        isSubscribed: true,
+        role: 'pro',
+        equifaxScore: 785,
+        displayName: 'Mock Pro User',
+        email: 'mock@example.com',
+        createdAt: new Date(),
+      } as unknown as StateDataType);
+      setIsLoading(false);
+      return;
+    }
 
     const unsubscribe = onSnapshot(
       memoizedDocRef,

@@ -52,7 +52,7 @@ export interface InternalQuery extends Query<DocumentData> {
  * @returns {UseCollectionResult<T>} Object with data, isLoading, error.
  */
 export function useCollection<T = any>(
-    memoizedTargetRefOrQuery: ((CollectionReference<DocumentData> | Query<DocumentData>) & {__memo?: boolean})  | null | undefined,
+  memoizedTargetRefOrQuery: ((CollectionReference<DocumentData> | Query<DocumentData>) & { __memo?: boolean }) | null | undefined,
 ): UseCollectionResult<T> {
   type ResultItemType = WithId<T>;
   type StateDataType = ResultItemType[] | null;
@@ -73,6 +73,32 @@ export function useCollection<T = any>(
 
     setIsLoading(true);
     setError(null);
+
+    const path: string =
+      memoizedTargetRefOrQuery.type === 'collection'
+        ? (memoizedTargetRefOrQuery as CollectionReference).path
+        : (memoizedTargetRefOrQuery as unknown as InternalQuery)._query.path.canonicalString();
+
+    if (process.env.NEXT_PUBLIC_USE_MOCK_USER === 'true' && path.includes('users/kadjYDNAiW3pZSKjcLaYvLnjzaIu/notifications')) {
+      setData([
+        {
+          id: 'mock-notif-1',
+          title: 'Welcome to Pro!',
+          message: 'Thanks for subscribing to FinPulse Pro.',
+          createdAt: new Date().toISOString(),
+          read: false,
+        },
+        {
+          id: 'mock-notif-2',
+          title: 'Credit Score Updated',
+          message: 'Your credit score has increased by 15 points.',
+          createdAt: new Date(Date.now() - 86400000).toISOString(),
+          read: true,
+        }
+      ] as unknown as ResultItemType[]);
+      setIsLoading(false);
+      return;
+    }
 
     const unsubscribe = onSnapshot(
       memoizedTargetRefOrQuery,
@@ -104,7 +130,7 @@ export function useCollection<T = any>(
     return () => unsubscribe();
   }, [memoizedTargetRefOrQuery]);
 
-  if(memoizedTargetRefOrQuery && !memoizedTargetRefOrQuery.__memo) {
+  if (memoizedTargetRefOrQuery && !memoizedTargetRefOrQuery.__memo) {
     throw new Error('Query or reference passed to useCollection was not properly memoized with useMemoFirebase');
   }
 

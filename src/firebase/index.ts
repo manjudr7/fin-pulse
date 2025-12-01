@@ -41,7 +41,7 @@ export function getSdks(firebaseApp: FirebaseApp) {
   const auth = getAuth(firebaseApp);
   const firestore = getFirestore(firebaseApp);
 
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === 'development' && process.env.NEXT_PUBLIC_USE_FIREBASE_EMULATORS === 'true') {
     // Prevent double initialization issues with hot reload
     // @ts-ignore
     if (!auth._emulatorConfig) {

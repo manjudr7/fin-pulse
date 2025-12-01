@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,45 +9,56 @@ body {
 @layer base {
   :root {
     /* Luxury Light Palette */
-    --background: 60 5% 96%; /* #f5f5f4 Stone 50/100 mix - Warm White */
-    --foreground: 222 47% 11%; /* #0f172a Slate 900 - Deep Navy/Black */
-    
-    --card: 0 0% 100%; /* Pure White */
+    --background: 60 5% 96%;
+    /* #f5f5f4 Stone 50/100 mix - Warm White */
+    --foreground: 222 47% 11%;
+    /* #0f172a Slate 900 - Deep Navy/Black */
+
+    --card: 0 0% 100%;
+    /* Pure White */
     --card-foreground: 222 47% 11%;
-    
+
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
-    
-    --primary: 222 47% 11%; /* Slate 900 - Trust/Authority */
+
+    --primary: 222 47% 11%;
+    /* Slate 900 - Trust/Authority */
     --primary-foreground: 210 40% 98%;
-    
+
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222 47% 11%;
-    
+
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
-    
-    --accent: 45 93% 47%; /* Gold - Luxury */
+
+    --accent: 45 93% 47%;
+    /* Gold - Luxury */
     --accent-foreground: 222 47% 11%;
-    
+
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-    
+
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 222 47% 11%;
-    
-    --gold: 45 93% 47%; /* #e8b923 */
-    
+
+    --gold: 45 93% 47%;
+    /* #e8b923 */
+
     --radius: 1rem;
 
-    --chart-1: 222 47% 11%; /* Primary Navy */
-    --chart-2: 45 93% 47%; /* Gold */
-    --chart-3: 221 83% 53%; /* Blue */
-    --chart-4: 166 95% 42%; /* Green */
-    --chart-5: 0 84% 60%; /* Red */
+    --chart-1: 222 47% 11%;
+    /* Primary Navy */
+    --chart-2: 45 93% 47%;
+    /* Gold */
+    --chart-3: 221 83% 53%;
+    /* Blue */
+    --chart-4: 166 95% 42%;
+    /* Green */
+    --chart-5: 0 84% 60%;
+    /* Red */
   }
- 
+
   /* Dark mode is effectively disabled/mapped to light mode or unused */
   .dark {
     --background: 60 5% 96%;
@@ -71,7 +81,7 @@ body {
     --input: 214.3 31.8% 91.4%;
     --ring: 222 47% 11%;
     --gold: 45 93% 47%;
-    
+
     --chart-1: 222 47% 11%;
     --chart-2: 45 93% 47%;
     --chart-3: 221 83% 53%;
@@ -81,9 +91,17 @@ body {
 }
 
 @keyframes wave {
-  0% { transform: translateX(0) translateY(0); }
-  50% { transform: translateX(20px) translateY(10px); }
-  100% { transform: translateX(0) translateY(0); }
+  0% {
+    transform: translateX(0) translateY(0);
+  }
+
+  50% {
+    transform: translateX(20px) translateY(10px);
+  }
+
+  100% {
+    transform: translateX(0) translateY(0);
+  }
 }
 
 @keyframes ripple {
@@ -91,6 +109,7 @@ body {
     transform: scale(1);
     opacity: 0.3;
   }
+
   100% {
     transform: scale(30);
     opacity: 0;
@@ -101,19 +120,22 @@ body {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   .bg-grid-pattern {
-    background-image: 
+    background-image:
       radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0),
       linear-gradient(to right, hsl(var(--border) / 0.25) 1px, transparent 1px),
       linear-gradient(to bottom, hsl(var(--border) / 0.25) 1px, transparent 1px);
     background-size: 2rem 2rem, 2rem 2rem, 2rem 2rem;
     background-color: hsl(var(--background));
   }
+
   .dark .bg-grid-pattern {
-    background-image: 
+    background-image:
       radial-gradient(circle at 1px 1px, hsl(var(--border) / 0.5) 1px, transparent 0),
       linear-gradient(to right, hsl(var(--border) / 0.1) 1px, transparent 1px),
       linear-gradient(to bottom, hsl(var(--border) / 0.1) 1px, transparent 1px);
@@ -124,27 +146,35 @@ body {
   .liquid-navbar {
     @apply relative w-full max-w-sm mx-auto h-[70px] bg-card/80 backdrop-blur-md border border-border/80 rounded-full flex justify-center items-center shadow-xl;
   }
+
   .liquid-navbar ul {
     @apply flex list-none w-full justify-around items-center p-0 m-0;
   }
+
   .liquid-navbar ul li {
     @apply flex-1 text-center transition-all duration-300 ease-in-out;
   }
+
   .liquid-navbar ul li a {
     @apply text-muted-foreground no-underline text-xs flex flex-col items-center p-2.5 rounded-2xl transition-all duration-300 ease-in-out;
   }
+
   .liquid-navbar ul li:hover a {
     @apply text-primary -translate-y-0.5;
   }
+
   .liquid-navbar ul li.active a {
     @apply text-primary;
   }
+
   .liquid-navbar ul li a .icon {
     @apply text-xl mb-1 transition-transform duration-300 ease-in-out flex items-center justify-center;
   }
+
   .liquid-navbar ul li:hover a .icon {
     @apply scale-110;
   }
+
   .liquid-navbar .pro-icon-bg {
     @apply bg-primary text-primary-foreground rounded-full w-8 h-8 relative;
     top: -5%;
@@ -153,22 +183,26 @@ body {
   .liquid-navbar .pro-icon-bg .lucide-star {
     @apply text-white;
   }
-  
+
   .info-card {
     @apply rounded-2xl;
   }
+
   .bg-card-red {
     background-color: hsl(var(--card-red));
     color: hsl(var(--card-red-foreground));
   }
+
   .bg-card-teal {
     background-color: hsl(var(--card-teal));
     color: hsl(var(--card-teal-foreground));
   }
+
   .bg-card-yellow {
     background-color: hsl(var(--card-yellow));
     color: hsl(var(--card-yellow-foreground));
   }
+
   .bg-card-purple {
     background-color: hsl(var(--card-purple));
     color: hsl(var(--card-purple-foreground));
@@ -177,12 +211,15 @@ body {
   .status-open {
     background-color: #00a86b;
   }
+
   .status-close {
     background-color: #ff4d4d;
   }
+
   .status-lost {
     background-color: #666;
   }
+
   .filters-container {
     @apply bg-background/30 backdrop-blur-sm p-1 rounded-xl inline-block;
   }
@@ -194,6 +231,7 @@ body {
   .filter-button:hover {
     @apply transform scale-105;
   }
+
   .water-bg {
     @apply absolute inset-0 w-full h-full overflow-hidden z-0;
   }
@@ -225,5 +263,10 @@ body {
     @apply absolute rounded-full bg-blue-500 opacity-0;
     animation: ripple 1.5s ease-out;
     pointer-events: none;
+  }
+
+  /* Hide Firebase Emulator Warning */
+  .firebase-emulator-warning {
+    display: none !important;
   }
 }
