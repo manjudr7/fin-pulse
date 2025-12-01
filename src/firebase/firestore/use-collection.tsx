@@ -79,19 +79,20 @@ export function useCollection<T = any>(
         ? (memoizedTargetRefOrQuery as CollectionReference).path
         : (memoizedTargetRefOrQuery as unknown as InternalQuery)._query.path.canonicalString();
 
-    if (process.env.NEXT_PUBLIC_USE_MOCK_USER === 'true' && path.includes('users/kadjYDNAiW3pZSKjcLaYvLnjzaIu/notifications')) {
+    const mockUid = process.env.NEXT_PUBLIC_MOCK_USER_ID || 'kadjYDNAiW3pZSKjcLaYvLnjzaIu';
+    if (process.env.NEXT_PUBLIC_USE_MOCK_USER === 'true' && path.includes(`users/${mockUid}/notifications`)) {
       setData([
         {
           id: 'mock-notif-1',
-          title: 'Welcome to Pro!',
-          message: 'Thanks for subscribing to FinPulse Pro.',
+          title: 'Welcome to FinPulse!',
+          message: mockUid === 'kadjYDNAiW3pZSKjcLaYvLnjzaIu' ? 'Thanks for subscribing to FinPulse Pro.' : 'Start your journey to financial health.',
           createdAt: new Date().toISOString(),
           read: false,
         },
         {
           id: 'mock-notif-2',
           title: 'Credit Score Updated',
-          message: 'Your credit score has increased by 15 points.',
+          message: 'Your credit score has been refreshed.',
           createdAt: new Date(Date.now() - 86400000).toISOString(),
           read: true,
         }

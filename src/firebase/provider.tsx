@@ -71,8 +71,9 @@ export const FirebaseProvider: React.FC<FirebaseProviderProps> = ({
   useEffect(() => {
     // Mock User Injection
     if (process.env.NEXT_PUBLIC_USE_MOCK_USER === 'true') {
+      const mockUid = process.env.NEXT_PUBLIC_MOCK_USER_ID || 'kadjYDNAiW3pZSKjcLaYvLnjzaIu';
       const mockUser = {
-        uid: 'kadjYDNAiW3pZSKjcLaYvLnjzaIu',
+        uid: mockUid,
         email: 'mock@example.com',
         displayName: 'Mock Pro User',
         emailVerified: true,

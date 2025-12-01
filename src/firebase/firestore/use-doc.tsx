@@ -59,13 +59,14 @@ export function useDoc<T = any>(
     setError(null);
     // Optional: setData(null); // Clear previous data instantly
 
-    if (process.env.NEXT_PUBLIC_USE_MOCK_USER === 'true' && memoizedDocRef.path === 'users/kadjYDNAiW3pZSKjcLaYvLnjzaIu') {
+    const mockUid = process.env.NEXT_PUBLIC_MOCK_USER_ID || 'kadjYDNAiW3pZSKjcLaYvLnjzaIu';
+    if (process.env.NEXT_PUBLIC_USE_MOCK_USER === 'true' && memoizedDocRef.path === `users/${mockUid}`) {
       setData({
-        id: 'kadjYDNAiW3pZSKjcLaYvLnjzaIu',
-        isSubscribed: true,
-        role: 'pro',
-        equifaxScore: 785,
-        displayName: 'Mock Pro User',
+        id: mockUid,
+        isSubscribed: mockUid === 'kadjYDNAiW3pZSKjcLaYvLnjzaIu', // Only Pro user is subscribed
+        role: mockUid === 'kadjYDNAiW3pZSKjcLaYvLnjzaIu' ? 'pro' : 'basic',
+        equifaxScore: mockUid === 'kadjYDNAiW3pZSKjcLaYvLnjzaIu' ? 785 : 650,
+        displayName: mockUid === 'kadjYDNAiW3pZSKjcLaYvLnjzaIu' ? 'Mock Pro User' : 'Mock Basic User',
         email: 'mock@example.com',
         createdAt: new Date(),
       } as unknown as StateDataType);
